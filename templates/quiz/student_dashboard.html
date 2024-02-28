@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4"> Welcome {{student.name}}</h5>
+            <a href="">
+                <h6 class="card-subtitle mb-2 text-body-secondary">See your Test summary</h6>
+            </a>
+
+        </div>
+    </div>
+    
+    <h1>Quiz available to attempt</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Quiz Name</th>
+                <th scope="col">Attempt</th>
+                <th scope="col">Analyse</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for x in test %}
+            <tr>
+                <th scope="row">{{forloop.counter}}</th>
+                <td>{{x.name}}</td>
+                <td><a href="/attempt/{{x.id}}">Attempt</a></td>
+                <td><a href="/test_analysis/{{x.id}}">Analyse</a></td>
+            </tr>
+            {% endfor %}
+    
+        </tbody>
+    </table>
+</div>
+
+
+
+{% endblock content %}

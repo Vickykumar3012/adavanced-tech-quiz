@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<div class="container">
+    
+    <form method="POST" action="{% url 'create_test' %}">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Test Name</label>
+            <input type="text" class="form-control"  aria-describedby="emailHelp" name="name">
+        </div>
+        
+        <div class="mb-3 form-check">
+            <label for="exampleInputEmail1" class="form-label">Description</label>
+
+            <textarea class="form-control" name="desc">
+
+            </textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Create Test</button>
+    </form>
+
+    <form method="POST" action="{% url 'create_question' %}">
+        {% csrf_token %}
+
+        <h1 class="text-center">Create Question</h1>
+        <select  class="form-control" name="test_id">
+            <option value="#">Select a test</option>
+            {% for test in tests %}
+            <option value="{{ test.id }}">{{ test.name }}</option>
+            {% endfor %}
+        </select>
+        <textarea rows="10" name="question"  class="form-control">
+
+        </textarea>
+        <button class="btn btn-primary my-2">Create Questions</button>
+    </form>
+</div>
+
+{% endblock content %}

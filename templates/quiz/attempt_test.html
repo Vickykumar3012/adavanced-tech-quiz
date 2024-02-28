@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>{{ test.name }}</h1>
+
+    <p>Question {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</p>
+
+    {% for question in page_obj %}
+    <h2>{{ question.text }}</h2>
+    <form method="POST" action="/save_response">
+        {% csrf_token %}
+        <ul>
+            <input type="hidden" name="attempted_test_id" value="{{attempted_test.id}}">
+            <input type="hidden" name="attempted_question_id" value="{{question.id}}">
+            {% for choice in choices %}
+            {% if choice.question == question %}
+            {% if selected_option.choice.id == choice.id %}
+            <li><input type="radio" name="choice" value="{{ choice.id }}" checked>{{ choice.text }}</li>
+            {% else %}
+            <li><input type="radio" name="choice" value="{{ choice.id }}">{{ choice.text }}</li>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+        </ul>
+        {% endfor %}
+        <button class="btn btn-primary">Save Response</button>
+        <a href="/submit_test/{{attempted_test.id}}" class="btn btn-dark">SUBMIT TEST</a>
+    </form>
+
+    {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+    {% endif %}
+
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}">Next</a>
+    {% endif %}
+
+
+</div>
+{% endblock content %}

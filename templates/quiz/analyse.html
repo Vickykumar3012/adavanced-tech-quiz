@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<div class="container">
+      <p>Total questions :{{count}}</p>
+      <p>Attempted question: {{attempt_count}}</p>
+      <p>Total marks:{{attempted_quiz.calculate_total_marks}}</p>
+      <p>Obtained marks: {{attempted_quiz.calculate_obtained_marks}}</p>
+</div>
+
+
+{% endblock content %}
